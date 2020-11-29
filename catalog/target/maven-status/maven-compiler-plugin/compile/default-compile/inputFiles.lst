@@ -1,0 +1,7 @@
+/projects/cloud-native-workshop-v2m1-labs/catalog/src/main/java/com/redhat/coolstore/client/InventoryClient.java
+/projects/cloud-native-workshop-v2m1-labs/catalog/src/main/java/com/redhat/coolstore/model/Product.java
+/projects/cloud-native-workshop-v2m1-labs/catalog/src/main/java/com/redhat/coolstore/service/CatalogService.java
+/projects/cloud-native-workshop-v2m1-labs/catalog/src/main/java/com/redhat/coolstore/RestApplication.java
+/projects/cloud-native-workshop-v2m1-labs/catalog/src/main/java/com/redhat/coolstore/service/ProductRepository.java
+/projects/cloud-native-workshop-v2m1-labs/catalog/src/main/java/com/redhat/coolstore/model/Inventory.java
+/projects/cloud-native-workshop-v2m1-labs/catalog/src/main/java/com/redhat/coolstore/service/CatalogEndpoint.java

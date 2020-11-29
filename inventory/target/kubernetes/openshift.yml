@@ -1,0 +1,170 @@
+---
+apiVersion: v1
+kind: ServiceAccount
+metadata:
+  annotations:
+    app.quarkus.io/build-timestamp: 2020-11-29 - 08:41:41 +0000
+    app.openshift.io/vcs-url: https://github.com/RedHat-Middleware-Workshops/cloud-native-workshop-v2m1-labs.git
+    app.quarkus.io/commit-id: 0439e628e53953f208cb05e28190cbe3d88aae1f
+    app.quarkus.io/vcs-url: https://github.com/RedHat-Middleware-Workshops/cloud-native-workshop-v2m1-labs.git
+  labels:
+    app.kubernetes.io/name: inventory
+    app.kubernetes.io/version: 1.0-SNAPSHOT
+    app.openshift.io/runtime: quarkus
+  name: inventory
+---
+apiVersion: v1
+kind: Service
+metadata:
+  annotations:
+    app.quarkus.io/build-timestamp: 2020-11-29 - 08:41:41 +0000
+    app.openshift.io/vcs-url: https://github.com/RedHat-Middleware-Workshops/cloud-native-workshop-v2m1-labs.git
+    app.quarkus.io/commit-id: 0439e628e53953f208cb05e28190cbe3d88aae1f
+    app.quarkus.io/vcs-url: https://github.com/RedHat-Middleware-Workshops/cloud-native-workshop-v2m1-labs.git
+  labels:
+    app.kubernetes.io/name: inventory
+    app.kubernetes.io/version: 1.0-SNAPSHOT
+    app.openshift.io/runtime: quarkus
+  name: inventory
+spec:
+  ports:
+  - name: http
+    port: 8080
+    targetPort: 8080
+  selector:
+    app.kubernetes.io/name: inventory
+    app.kubernetes.io/version: 1.0-SNAPSHOT
+  type: ClusterIP
+---
+apiVersion: image.openshift.io/v1
+kind: ImageStream
+metadata:
+  annotations:
+    app.quarkus.io/build-timestamp: 2020-11-29 - 08:41:41 +0000
+    app.openshift.io/vcs-url: https://github.com/RedHat-Middleware-Workshops/cloud-native-workshop-v2m1-labs.git
+    app.quarkus.io/commit-id: 0439e628e53953f208cb05e28190cbe3d88aae1f
+    app.quarkus.io/vcs-url: https://github.com/RedHat-Middleware-Workshops/cloud-native-workshop-v2m1-labs.git
+  labels:
+    app.kubernetes.io/name: inventory
+    app.kubernetes.io/version: 1.0-SNAPSHOT
+    app.openshift.io/runtime: quarkus
+  name: inventory
+spec: {}
+---
+apiVersion: image.openshift.io/v1
+kind: ImageStream
+metadata:
+  annotations:
+    app.quarkus.io/build-timestamp: 2020-11-29 - 08:41:41 +0000
+    app.openshift.io/vcs-url: https://github.com/RedHat-Middleware-Workshops/cloud-native-workshop-v2m1-labs.git
+    app.quarkus.io/commit-id: 0439e628e53953f208cb05e28190cbe3d88aae1f
+    app.quarkus.io/vcs-url: https://github.com/RedHat-Middleware-Workshops/cloud-native-workshop-v2m1-labs.git
+  labels:
+    app.kubernetes.io/name: inventory
+    app.kubernetes.io/version: 1.0-SNAPSHOT
+    app.openshift.io/runtime: quarkus
+  name: s2i-java
+spec:
+  dockerImageRepository: fabric8/s2i-java
+---
+apiVersion: build.openshift.io/v1
+kind: BuildConfig
+metadata:
+  annotations:
+    app.quarkus.io/build-timestamp: 2020-11-29 - 08:41:41 +0000
+    app.openshift.io/vcs-url: https://github.com/RedHat-Middleware-Workshops/cloud-native-workshop-v2m1-labs.git
+    app.quarkus.io/commit-id: 0439e628e53953f208cb05e28190cbe3d88aae1f
+    app.quarkus.io/vcs-url: https://github.com/RedHat-Middleware-Workshops/cloud-native-workshop-v2m1-labs.git
+  labels:
+    app.kubernetes.io/name: inventory
+    app.kubernetes.io/version: 1.0-SNAPSHOT
+    app.openshift.io/runtime: quarkus
+  name: inventory
+spec:
+  output:
+    to:
+      kind: ImageStreamTag
+      name: inventory:1.0-SNAPSHOT
+  source:
+    binary: {}
+  strategy:
+    sourceStrategy:
+      from:
+        kind: ImageStreamTag
+        name: s2i-java:2.3
+---
+apiVersion: apps.openshift.io/v1
+kind: DeploymentConfig
+metadata:
+  annotations:
+    app.quarkus.io/build-timestamp: 2020-11-29 - 08:41:41 +0000
+    app.openshift.io/vcs-url: https://github.com/RedHat-Middleware-Workshops/cloud-native-workshop-v2m1-labs.git
+    app.quarkus.io/commit-id: 0439e628e53953f208cb05e28190cbe3d88aae1f
+    app.quarkus.io/vcs-url: https://github.com/RedHat-Middleware-Workshops/cloud-native-workshop-v2m1-labs.git
+  labels:
+    app.kubernetes.io/name: inventory
+    app.kubernetes.io/version: 1.0-SNAPSHOT
+    app.openshift.io/runtime: quarkus
+  name: inventory
+spec:
+  replicas: 1
+  selector:
+    app.kubernetes.io/name: inventory
+    app.kubernetes.io/version: 1.0-SNAPSHOT
+  template:
+    metadata:
+      annotations:
+        app.quarkus.io/build-timestamp: 2020-11-29 - 08:41:41 +0000
+        app.openshift.io/vcs-url: https://github.com/RedHat-Middleware-Workshops/cloud-native-workshop-v2m1-labs.git
+        app.quarkus.io/commit-id: 0439e628e53953f208cb05e28190cbe3d88aae1f
+        app.quarkus.io/vcs-url: https://github.com/RedHat-Middleware-Workshops/cloud-native-workshop-v2m1-labs.git
+      labels:
+        app.kubernetes.io/name: inventory
+        app.kubernetes.io/version: 1.0-SNAPSHOT
+        app.openshift.io/runtime: quarkus
+    spec:
+      containers:
+      - env:
+        - name: KUBERNETES_NAMESPACE
+          valueFrom:
+            fieldRef:
+              fieldPath: metadata.namespace
+        - name: JAVA_APP_JAR
+          value: /deployments/inventory-1.0-SNAPSHOT-runner.jar
+        image: jboss/inventory:1.0-SNAPSHOT
+        imagePullPolicy: IfNotPresent
+        livenessProbe:
+          failureThreshold: 3
+          httpGet:
+            path: /health/live
+            port: 8080
+            scheme: HTTP
+          initialDelaySeconds: 0
+          periodSeconds: 30
+          successThreshold: 1
+          timeoutSeconds: 10
+        name: inventory
+        ports:
+        - containerPort: 8080
+          name: http
+          protocol: TCP
+        readinessProbe:
+          failureThreshold: 3
+          httpGet:
+            path: /health/ready
+            port: 8080
+            scheme: HTTP
+          initialDelaySeconds: 0
+          periodSeconds: 30
+          successThreshold: 1
+          timeoutSeconds: 10
+      serviceAccount: inventory
+  triggers:
+  - imageChangeParams:
+      automatic: true
+      containerNames:
+      - inventory
+      from:
+        kind: ImageStreamTag
+        name: inventory:1.0-SNAPSHOT
+    type: ImageChange

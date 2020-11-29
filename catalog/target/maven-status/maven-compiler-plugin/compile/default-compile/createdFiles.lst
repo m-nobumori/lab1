@@ -1,0 +1,8 @@
+com/redhat/coolstore/client/InventoryClient$InventoryClientFallbackFactory.class
+com/redhat/coolstore/RestApplication.class
+com/redhat/coolstore/client/InventoryClient.class
+com/redhat/coolstore/service/CatalogService.class
+com/redhat/coolstore/service/ProductRepository.class
+com/redhat/coolstore/model/Product.class
+com/redhat/coolstore/service/CatalogEndpoint.class
+com/redhat/coolstore/model/Inventory.class
